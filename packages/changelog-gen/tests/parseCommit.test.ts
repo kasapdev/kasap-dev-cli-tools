@@ -43,4 +43,15 @@ describe("parseConventionalCommit", () => {
     const result = parseConventionalCommit(raw("Feat: weird casing"));
     expect(result.type).toBe("feat");
   });
+
+  it("trims whitespace inside the scope parentheses", () => {
+    const result = parseConventionalCommit(raw("feat( auth ): add login flow"));
+    expect(result.scope).toBe("auth");
+  });
+
+  it("treats a scope made up only of whitespace as no scope", () => {
+    const result = parseConventionalCommit(raw("feat(   ): add login flow"));
+    expect(result.type).toBe("feat");
+    expect(result.scope).toBeUndefined();
+  });
 });

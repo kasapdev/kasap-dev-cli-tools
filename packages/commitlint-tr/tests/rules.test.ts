@@ -69,4 +69,21 @@ describe("validateCommitMessage", () => {
       expect(result.valid, `${type} should be valid`).toBe(true);
     }
   });
+
+  it("trims whitespace inside the scope parentheses", () => {
+    const result = validateCommitMessage("feat( auth ): kullanıcı girişi eklendi");
+    expect(result.valid).toBe(true);
+    expect(result.parsed?.scope).toBe("auth");
+  });
+
+  it("treats a scope made up only of whitespace as no scope", () => {
+    const result = validateCommitMessage("feat(   ): kullanıcı girişi eklendi");
+    expect(result.valid).toBe(true);
+    expect(result.parsed?.scope).toBeUndefined();
+  });
+
+  it("rejects a subject where the colon isn't followed by a space", () => {
+    const result = validateCommitMessage("fix:boşluksuz açıklama");
+    expect(result.valid).toBe(false);
+  });
 });

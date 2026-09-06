@@ -44,4 +44,10 @@ describe("parseEnvContent", () => {
     expect(result.size).toBe(1);
     expect(result.get("FOO")?.value).toBe("bar");
   });
+
+  it("does not strip quotes when the opening and closing quote characters don't match", () => {
+    const result = parseEnvContent(`A="mismatched'\nB='also mismatched"`);
+    expect(result.get("A")?.value).toBe(`"mismatched'`);
+    expect(result.get("B")?.value).toBe(`'also mismatched"`);
+  });
 });

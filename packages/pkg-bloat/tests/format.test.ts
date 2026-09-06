@@ -20,6 +20,11 @@ describe("formatBytes", () => {
   it("formats gigabytes", () => {
     expect(formatBytes(2 * 1024 * 1024 * 1024)).toBe("2 GB");
   });
+
+  it("clamps negative byte counts to 0 B instead of producing NaN/negative output", () => {
+    expect(formatBytes(-1)).toBe("0 B");
+    expect(formatBytes(-1024 * 1024)).toBe("0 B");
+  });
 });
 
 describe("formatTable", () => {
