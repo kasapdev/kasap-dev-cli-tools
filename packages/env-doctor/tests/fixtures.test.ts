@@ -21,6 +21,8 @@ describe("env-doctor against real fixture files", () => {
     expect(diff.empty).toEqual(["PORT"]);
     // UNDOCUMENTED_LEFTOVER isn't declared in .env.example at all.
     expect(diff.undocumented).toEqual(["UNDOCUMENTED_LEFTOVER"]);
+    // DATABASE_URL differs in value but both are url-shaped, so no mismatch.
+    expect(diff.typeMismatches).toEqual([]);
     expect(diff.hasBlockingIssues).toBe(true);
   });
 });

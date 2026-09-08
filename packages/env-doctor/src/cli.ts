@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name("env-doctor")
   .description("Compares .env against .env.example: missing, empty, and undocumented variables.")
-  .version("0.1.0")
+  .version("0.2.0")
   .option("--example <path>", "path to the example env file", ".env.example")
   .option("--env <path>", "path to the actual env file", ".env")
   .option("--json", "print machine-readable JSON output instead of a text report")
